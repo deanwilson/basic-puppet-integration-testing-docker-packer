@@ -1,0 +1,28 @@
+{
+  "builders": [{
+    "type": "docker",
+    "image": "ubuntu",
+    "commit": "true"
+ }],
+ "provisioners": [{
+   "type": "shell",
+   "inline": [
+     "apt-get update",
+     "apt-get install puppet curl -y",
+     "curl -L https://github.com/aelsabbahy/goss/releases/download/v0.0.22/goss-linux-amd64 > /usr/local/bin/goss && chmod +x /usr/local/bin/goss"
+     ]
+  }, {
+    "type": "file",
+    "source": "goss.json",
+    "destination": "/tmp/goss.json"
+  }, {
+    "type": "puppet-masterless",
+    "manifest_file": "site.pp",
+    "module_paths": [ "modules" ]
+  }, {
+    "type": "shell",
+    "inline": [
+      "/usr/local/bin/goss -g /tmp/goss.json validate --format documentation"
+    ]
+  }]
+}
