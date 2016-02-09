@@ -3,6 +3,8 @@
 A small repo to show an example of running integration tests against a
 puppet module. Assumes you have Packer and Docker installed and working.
 
+This code is based on the [Puppet integration tests in (about) seven minutes](http://www.unixdaemon.net/puppet/puppet-integration-tests-in-seven-minutes/) blog post.
+
     ./packer validate strace-testing.json
 
     ./packer build strace-testing.json
